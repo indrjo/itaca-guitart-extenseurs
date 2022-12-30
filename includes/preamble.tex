@@ -1,0 +1,114 @@
+% !TEX program = lualatex
+% !TEX root = ../main.tex
+% !TEX spellcheck = en_GB
+
+\section{Preamble (for me)}
+
+\nota{This section is important for me. It may be deleted in the final version. Let me recall some words here, and then (try to) set a strategy to attack the paper.}
+
+A {\em monad} for a category \(\cat C\) consists of:
+\begin{itemize}
+\item one functor \(T :  \cat C \to \cat C\)
+\item one natural transformation \(\eta : \id_{\cat C} \to T\)
+\item one natural transformation \(\mu : T^2 \to T\), where \(T^2 := T \circ T\)
+\end{itemize}
+such that the diagrams
+\[\begin{tikzcd}
+T^3 x \ar["{T\mu_x}", r] \ar["{\mu_{T x}}", d, swap] & T^2 x \ar["{\mu_x}", d] \\
+T^2 x \ar["{\mu_x}", r, swap] & T x
+\end{tikzcd} \quad\text{and}\quad \begin{tikzcd}
+T x \ar["{\eta_{T x}}", r] \ar["{\id_{T x}}", dr] \ar["{T\mu_x}", d, swap] & T^2 x \ar["{\mu_x}", d] \\
+T^2 x \ar["{\mu_x}", r, swap] & T x
+\end{tikzcd}\]
+commute for every object \(x\) of \(\cat C\); let us write such monad as the triple \((T, \eta, \mu)\).
+
+In the sketched proof, the author talks about some \q{\textfrench{monade des parties du topos}}. \(\Set\) is a topos and
+
+\begin{sandbox}[The \q{power set} monad]
+Consider the functor \(2^\bullet : \Set \to \Set\) where, for \(X\) a set, \(2^\bullet(X) := 2^X\) and, for \(f : X \to Y\), define \(2^f := 2^\bullet(f)\)  to be the function \(2^A \to 2^B\) that takes subsets \(E\) of \(A\) to \(fE\).\newline
+Now, we need functions \(\xi_X : X \to 2^X\), one for each set \(X\), forming a natural transformation \(\xi : \id_\Set \to 2^\bullet\); we consider that one introduced as \(\xi_X (x) := \set{x}\).\newline
+To conclude the structure of monad, consider for \(X\) set, the function
+\[\delta_X : 2^{2^X} \to 2^X\,, \ \delta_X (F) := \bigcup_{E \in F} E .\]
+The family of such functions determine a natural transformation \(\delta : 2^\bullet \circ 2^\bullet \to 2^\bullet\).
+\end{sandbox}
+
+Let us try now to bring this to any topoi, if possible.
+
+\begin{sandbox}[The monad of parts for a topos \(\cat E\), attempt \#1]
+One of the possible definitions of (elementary) topos is:
+\begin{quotation}
+a category with finite products and power objects. 
+\end{quotation}
+For future reference, here is the definition of power object:
+\begin{quotation}
+For if \(\cat C\) is a category with finite products and \(a \in \abs{\cat C}\), a {\em power object} in \(\cat C\) consists of
+\begin{itemize}
+\item one object, \enquote{of the parts of \(a\)}, we write \(\Omega^a\)
+\item one monomorphism \(\in_a \to \Omega^a \times a\), the \enquote{membership relation}
+\end{itemize}
+with the property: for every \(b \in \abs{\cat C}\) and monomorphism \(r \to b \times a\) there exists one and only one morphism \(f : b \to \Omega^a\) for which there is a pullback square
+\[\begin{tikzcd}
+r \ar[r] \ar[d] & b \times a  \ar["{f \times \id_a}", d]\\
+\in_a \ar[r]    & \Omega^a \times a
+\end{tikzcd}\]
+in \(\cat C\).
+\end{quotation}
+%Observe that if \(\cat C\) is a cartesian closed category --- as topoi are --- and \(1 \in \abs{\cat C}\) is a terminal object, then the power object of \(1\) is the object \(\Omega^1\) and the monomorphism \(\in_1 \to \Omega^1 \times 1 \cong \Omega^1\) is a subobject classifier (in particular, \(\in_1 \cong 1\)). Conversely, in a cartesian closed category, from a subobject classifier we can retrieve all the material required for exponentials. \nota{Rewrite and expand, heavily. It cannot be so vague. For now, a quick reference is {\sc Topoi} of Goldblatt on chapter 4 {\sc Introducing Topoi} under section 4.7 {\sc Power objects} or the bibliography therein.} This tells that is you have a subobject classifier \(\Omega\) one can understand who is the membership relation \(\in_a \to \Omega^a \times a\).\newline
+Now if we want to replicate the above phenomenon inside any topos \(\cat E\), we need a suitable functor \(\Omega^\bullet : \cat E \to \cat E\). For \(a \in \abs{\cat E}\),
+\[\Omega^\bullet (a) := \Omega^a .\]
+%Observe how, of the thing power object we do not care of the membership relation.
+It remains to understand what \(\Omega^f := \Omega^\bullet (f)\), for \(f : a \to b\) in \(\cat E\), could be to make a functor. Consider the power objects of \(a\) and \(b\), that is \(\Omega^a\) and \(\Omega^b\) together with their respective membership relations \(\in_a \to \Omega^a \times a\) and \(\in_b \to \Omega^b \times b\).
+\[\begin{tikzcd}
+\in_a \ar[r] & \Omega^a \times a \ar["{1_{\Omega^a} \times f}", r] & \Omega^a \times b \ar[dashed, d] \\
+\in_b \ar[rr] & & \Omega^b \times b
+\end{tikzcd}\]
+Here, the dotted morphism is of the form \(\Omega^f \times \id_b\), where \(\Omega^f : \Omega^a \to \Omega^b\) that one for which there is a pullback square
+\[\begin{tikzcd}
+\in_a \ar[r] \ar[d] & \Omega^a \times a \ar["{1_{\Omega^a} \times f}", r] & \Omega^a \times b \ar[dashed, d] \\
+\in_b \ar[rr] & & \Omega^b \times b
+\end{tikzcd}\]
+%\nota{This is a mess. Adjust all this before.} \nota{Now: how do I import the notion of union from \(\Set\)?}
+Let us verify functoriality now. Take
+\[\begin{tikzcd} a \ar["f", r] & b \ar["g", r] & c \end{tikzcd}\]
+so that we have also
+\[\begin{tikzcd} \Omega^a \ar["{\Omega^f}", r] & \Omega^b \ar["{\Omega^g}", r] & \Omega^c \end{tikzcd} .\]
+Let us study \(\Omega^{gf} : a \to c\). By definition, \(\Omega^{gf}\) is the morphism for which there is a pullback square
+\[\begin{tikzcd}[column sep=large]
+\in_a \ar[r] \ar[d] & \Omega^a \times a \ar["{\id_{\Omega^a} \times (gf)}", r] & \Omega^a \times c \ar["{\Omega^{gf}}", d] \\
+\in_c \ar[rr] & & \Omega^c \times c
+\end{tikzcd}\]
+We have then two pullback squares glued like this:
+\[\begin{tikzcd}
+\in_a \ar[r] \ar[d] & \Omega^a \times a \ar["{\id_{\Omega^a} \times f}", r] & \Omega^a \times b \ar["{\Omega^f \times \id_b}", d, swap] \\
+\in_b \ar[d] \ar[rr] & & \Omega^b \times b \ar["{\id_{\Omega^b} \times g}", r, swap] & \Omega^b \times c \ar["{\Omega^g \times \id_c}", d] \\
+\in_c \ar[rrr] & & & \Omega^c \times c
+\end{tikzcd}\]
+The first one gives the morphism \(\Omega^f\), whereas the second one \(\Omega^g\). Let us add two arrows to make a rectangle:
+\[\begin{tikzcd}
+\in_a \ar[r] \ar[d] & \Omega^a \times a \ar["{\id_{\Omega^a} \times f}", r] & \Omega^a \times b \ar["{\Omega^f \times \id_b}", d, swap] \ar["{\id_{\Omega^a} \times g}", r] & \Omega^a \times c \ar[d, dashed] \\
+\in_b \ar[d] \ar[rr] & & \Omega^b \times b \ar["{\id_{\Omega^b} \times g}", r, swap] & \Omega^b \times c \ar["{\Omega^g \times \id_c}", d] \\
+\in_c \ar[rrr] & & & \Omega^c \times c
+\end{tikzcd}\]
+Here, the dotted arrow is the unique that could be, that is \(\Omega^f \times \id_c\); this results from the pact that in the upside rectangle on the right, the morphisms involved are all monomorphisms. The composition of the morphisms \(\Omega^a \times c \to \Omega^b \times c \to \Omega^c \times c\) on the right is \((\Omega^g \Omega^f) \times \id_c\): this means that if we can show the perimetric rectangle is a pullback square \nota{Pullback Lemma here\dots{}}, we can conclude \(\Omega^{gf} = \Omega^g \Omega^f\). \nota{\TeX{} that!} \nota{There is a problem here\dots{} fixing it\dots{}}
+\end{sandbox}
+
+\nota{Examples here! Or not exactly here, but more examples for myself\dots{}}
+
+If you are given a monad \((T, \eta, \mu)\) for a category \(\cat C\), you can introduce an {\em algebra} for this monad, consisting of:
+\begin{itemize}
+\item one object \(x\) in \(\cat C\)
+\item one morphism \(f : T x \to x\)
+\end{itemize}
+all this making commute the following diagrams
+\[\begin{tikzcd}
+T^2 x \ar["Tf", r] \ar["{\mu_x}", d, swap] & Tx \ar["f", d] \\
+T x \ar["f", r, swap] & x
+\end{tikzcd} \quad\text{and}\quad \begin{tikzcd}[row sep=small]
+x \ar["{\id_x}", dd, swap] \ar["{\eta_x}", dr] \\
+& Tx \ar["f", dl] \\
+x %\ar["f", ur, swap]
+\end{tikzcd}\]
+
+\nota{I've just written a couple of definitions, but for the next days here is what to do for me: find more examples motivating monads and algebras for monads; you must learn something about {\em Kleisli} and {\em Eilenberg-Moore categories}\dots{} Not only for the sake of these pages.}
+
+\nota{Now understand this: \q{\textfrench{un treillis complet est une \(2^\bullet\)-algèbre}}.}
