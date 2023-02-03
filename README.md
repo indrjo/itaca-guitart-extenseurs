@@ -1,0 +1,3 @@
+# itaca-guitart-extenseurs
+
+Translating and expanding the laconic http://www.numdam.org/item/DIA_1980__3__A3_0.pdf...

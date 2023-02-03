@@ -1,0 +1,139 @@
+% !TEX program = lualatex
+% !TEX root = ../../extenseurs.tex
+% !TEX spellcheck = en_GB
+
+\subsection{(Covariant) Power object functor}
+
+%\begin{sandbox}[The monad of parts for a topos \(\cat E\), attempt \#1]
+One of the possible definitions of (elementary) topos is:
+\begin{quotation}
+a category with finite limits and power objects. 
+\end{quotation}
+For future reference and notation, here is the definition of power object:
+\begin{definition}
+For if \(\cat C\) is a category with finite products and \(a \in \abs{\cat C}\), a {\em power object} in \(\cat C\) consists of
+\begin{itemize}
+\item one object \enquote{of the parts of \(a\)}, we write \(\Omega^a\)
+\item one monomorphism \(\epsilon_a : \in_a \to \Omega^a \times a\), the \enquote{membership relation}
+\end{itemize}
+with the property: for every \(b \in \abs{\cat C}\) and monomorphism \(\rho : r \to b \times a\) there exists one and only one morphism \(f : b \to \Omega^a\) for which there is a pullback square
+\[\begin{tikzcd}
+r \ar["\rho", r] \ar[d] & b \times a  \ar["{f \times \id_a}", d]\\
+\in_a \ar["{\epsilon_a}", r, swap]    & \Omega^a \times a
+\end{tikzcd}\]
+in \(\cat C\).
+\end{definition}
+\nota{A finer notation may be \(\wp(a)\). Do I really need to refer so explicitly to subobject classifiers here?}
+%Observe that if \(\cat C\) is a cartesian closed category --- as topoi are --- and \(1 \in \abs{\cat C}\) is a terminal object, then the power object of \(1\) is the object \(\Omega^1\) and the monomorphism \(\in_1 \to \Omega^1 \times 1 \cong \Omega^1\) is a subobject classifier (in particular, \(\in_1 \cong 1\)). Conversely, in a cartesian closed category, from a subobject classifier we can retrieve all the material required for exponentials. \nota{Rewrite and expand, heavily. It cannot be so vague. For now, a quick reference is {\sc Topoi} of Goldblatt on chapter 4 {\sc Introducing Topoi} under section 4.7 {\sc Power objects} or the bibliography therein.} This tells that is you have a subobject classifier \(\Omega\) one can understand who is the membership relation \(\in_a \to \Omega^a \times a\).\newline
+Now if we want to replicate the above phenomenon inside any topos \(\cat E\), we need a suitable functor \(\Omega^\bullet : \cat E \to \cat E\). For \(a \in \abs{\cat E}\),
+\[\Omega^\bullet (a) := \Omega^a .\]
+%Observe how, of the thing power object we do not care of the membership relation.
+It remains to understand what \(\Omega^f := \Omega^\bullet (f)\), for \(f : a \to b\) in \(\cat E\), should be to make a functor. Consider the power objects of \(a\) and \(b\), that is \(\Omega^a\) and \(\Omega^b\) together with their respective membership relations \(\epsilon_a : \in_a \to \Omega^a \times a\) and \(\epsilon_b : \in_b \to \Omega^b \times b\).
+\[\begin{tikzcd}
+\in_a \ar["{\epsilon_a}", r] & \Omega^a \times a \ar["{1_{\Omega^a} \times f}", r] & \Omega^a \times b \ar[dashed, d] \\
+\in_b \ar["{\epsilon_b}", rr, swap] & & \Omega^b \times b
+\end{tikzcd}\]
+Here, the dotted morphism is of the form \(\Omega^f \times \id_b\), where \(\Omega^f : \Omega^a \to \Omega^b\) is that morphism for which there is a pullback square
+\[\begin{tikzcd}
+\in_a \ar["{\epsilon_a}", r] \ar[d] & \Omega^a \times a \ar["{1_{\Omega^a} \times f}", r] & \Omega^a \times b \ar["{\Omega^f \times \id_b}", d, dashed] \\
+\in_b \ar["{\epsilon_a}", rr, swap] & & \Omega^b \times b
+\end{tikzcd}\]
+%\nota{This is a mess. Adjust all this before.} \nota{Now: how do I import the notion of union from \(\Set\)?}
+Let us verify functoriality now. Take
+\[\begin{tikzcd} a \ar["f", r] & b \ar["g", r] & c \end{tikzcd}\]
+so that we have also
+\[\begin{tikzcd} \Omega^a \ar["{\Omega^f}", r] & \Omega^b \ar["{\Omega^g}", r] & \Omega^c \end{tikzcd} .\]
+Let us study \(\Omega^{gf} : a \to c\). By definition, \(\Omega^{gf}\) is the morphism for which there is a pullback square
+\begin{equation}\begin{tikzcd}[column sep=large]
+\in_a \ar["{\epsilon_a}", r] \ar[d] & \Omega^a \times a \ar["{\id_{\Omega^a} \times (gf)}", r] & \Omega^a \times c \ar["{\Omega^{gf}}", d] \\
+\in_c \ar["{\epsilon_b}", rr, swap] & & \Omega^c \times c
+\end{tikzcd}\label{commu:omegagf}\end{equation}
+We have then two pullback squares glued like this:
+\[\begin{tikzcd}[column sep=large]
+\in_a \ar["{\epsilon_a}", r] \ar[d] & \Omega^a \times a \ar["{\id_{\Omega^a} \times f}", r] & \Omega^a \times b \ar["{\Omega^f \times \id_b}", d, swap] \\
+\in_b \ar[d] \ar["{\epsilon_b}", rr, swap] & & \Omega^b \times b \ar["{\id_{\Omega^b} \times g}", r, swap] & \Omega^b \times c \ar["{\Omega^g \times \id_c}", d] \\
+\in_c \ar["{\epsilon_c}", rrr, swap] & & & \Omega^c \times c
+\end{tikzcd}\]
+The first one gives the morphism \(\Omega^f\), whereas the second one \(\Omega^g\). Let us add two arrows to make a rectangle:
+\[\begin{tikzcd}[column sep=large]
+\in_a \ar["{\epsilon_a}", r] \ar[d] & \Omega^a \times a \ar["{\id_{\Omega^a} \times f}", r] & \Omega^a \times b \ar["{\Omega^f \times \id_b}", d, swap] \ar["{\id_{\Omega^a} \times g}", r] & \Omega^a \times c \ar["{\Omega^f \times \id_c}", d] \\
+\in_b \ar[d] \ar["{\epsilon_b}", rr, swap] & & \Omega^b \times b \ar["{\id_{\Omega^b} \times g}", r, swap] & \Omega^b \times c \ar["{\Omega^g \times \id_c}", d] \\
+\in_c \ar["{\epsilon_c}", rrr, swap] & & & \Omega^c \times c
+\end{tikzcd}\]
+%Here, the dotted arrow is the unique that could be, that is \(\Omega^f \times \id_c\); this results from the pact that in the upside rectangle on the right, the morphisms involved are all monomorphisms. The composition of the morphisms \(\Omega^a \times c \to \Omega^b \times c \to \Omega^c \times c\) on the right is \((\Omega^g \Omega^f) \times \id_c\): this means that if we can show the perimetric rectangle is a pullback square \nota{Pullback Lemma here\dots{}}, we can conclude \(\Omega^{gf} = \Omega^g \Omega^f\). \nota{\TeX{} that!} \nota{There is a problem here\dots{} fixing it\dots{}}
+%\end{sandbox}
+
+The plan is: if we can show
+\[\begin{tikzcd}[column sep=large]
+\Omega^a \times b \ar["{\Omega^f \times \id_b}", d, swap] \ar["{\id_{\Omega^a} \times g}", r] & \Omega^a \times c \ar["{\Omega^f \times \id_c}", d] \\
+\Omega^b \times b \ar["{\id_{\Omega^b} \times g}", r, swap] & \Omega^b \times c
+\end{tikzcd}\]
+is a pullback square, then applying the {\em Pullback Lemma} twice will allow us to conclude the rectangle~\eqref{commu:omegagf} is a pullback square too.
+
+Mere brute force is employed here. In
+\[\begin{tikzcd}[sep=large]
+\bullet \ar["u", drr, bend left] \ar["v", ddr, swap, bend right] \\
+& \Omega^a \times b \ar["{\Omega^f \times \id_b}", d] \ar["{\id_{\Omega^a} \times g}", r, swap] & \Omega^a \times c \ar["{\Omega^f \times \id_c}", d] \\
+& \Omega^b \times b \ar["{\id_{\Omega^b} \times g}", r, swap] & \Omega^b \times c
+\end{tikzcd}\]
+assume \(\left( \Omega^f \times \id_c \right) u = \left( \id_{\Omega^b} \times g \right) v\). Now a lot of notation is needed, to write the products involved: we write them as
+\begin{align*}
+& \begin{tikzcd}[ampersand replacement=\&] \Omega^a \& \Omega^a \times b \ar["{\alpha_1}", l, swap] \ar["{\alpha_2}", r] \& b \end{tikzcd} \\
+& \begin{tikzcd}[ampersand replacement=\&] \Omega^a \& \Omega^a \times c \ar["{\beta_1}", l, swap] \ar["{\beta_2}", r] \& c \end{tikzcd} \\
+& \begin{tikzcd}[ampersand replacement=\&] \Omega^b \& \Omega^b \times b \ar["{\gamma_1}", l, swap] \ar["{\gamma_2}", r] \& b \end{tikzcd} \\
+& \begin{tikzcd}[ampersand replacement=\&] \Omega^b \& \Omega^b \times c \ar["{\delta_1}", l, swap] \ar["{\delta_2}", r] \& c \end{tikzcd}
+\end{align*}
+Here are the equations defining the products of morphisms involved
+\begin{align*}
+& \beta_1 \left( \id_{\Omega^a} \times g \right) = \alpha_1 \\
+& \beta_2 \left( \id_{\Omega^a} \times g \right) = g \alpha_2 \\
+& \gamma_1 \left( \Omega^f \times \id_b \right) = \Omega^f \alpha_1 \\
+& \gamma_2 \left( \Omega^f \times \id_b \right) = \alpha_2 \\
+& \delta_1 \left( \Omega^f \times \id_c \right) = \Omega^f \beta_1 \\
+& \delta_2 \left( \Omega^f \times \id_c \right) = \beta_2 \\
+& \delta_1 \left( \id_{\Omega^b} \times g \right) = \gamma_1 \\
+& \delta_2 \left( \id_{\Omega^b} \times g \right) = g \gamma_2
+\end{align*}
+\nota{We do not use all of them!}
+%Let us add two of these projections to the previous diagram: 
+%\[\begin{tikzcd}[sep=large]
+%\bullet \ar["u", drr, bend left] \ar["v", ddr, swap, bend right] \\
+%& \Omega^a \times b \ar["{\Omega^f \times \id_b}", d] \ar["{\id_{\Omega^a} \times g}", r, swap] & \Omega^a \times c \ar["{\Omega^f \times \id_c}", d] \ar["{\beta_1}", r] & \Omega^a \\
+%& \Omega^b \times b \ar["{\id_{\Omega^b} \times g}", r, swap] \ar["{\gamma_2}", d] & \Omega^b \times c \\
+%& b
+%\end{tikzcd}\]
+By universal property of product, we have one \(\chi : \bullet \to \Omega^a \times b\) for which \(\beta_1 u = \alpha_1 \chi\) and \(\gamma_2 v = \alpha_2 \chi\). We show now that \(\chi\) is what we are looking for using the universal property of the the products of the square.
+\begin{align*}
+& \gamma_1 v = \delta_1 \left( \id_{\Omega^b} \times g \right) v = \delta_1 \left( \Omega^f \times \id_c \right) u = \Omega^f \beta_1 u = \Omega^f \alpha_1 \chi = \gamma_1 \left( \Omega^f \times \id_b \right) \chi \\
+& \gamma_2 v = \alpha_1 \chi = \gamma_2 \left( \Omega^f \times \id_b \right) \chi % \\
+%& \underbrace{\delta_2 \left( \Omega^f \times \id_c \right)}_{\beta_2} v = \delta_2 \left( \id_{\Omega^b} \times g \right) v = g \gamma_2 v = g \alpha_2 \chi = \beta_2 \left( \id_{\Omega^a} \times g \right) \chi
+\end{align*}
+which implies \(v = \left( \Omega^f \times \id_b \right) \chi\); moreover, 
+\begin{align*}
+& \beta_1 v = \alpha_1 \chi = \beta_1 \left( \id_{\Omega^a} \times g \right) \chi \\
+& \beta_2 u = \delta_2 \left( \Omega^f \times \id_c \right) u = \delta_2 \left( \id_{\Omega^b} \times g \right) v = g \gamma_2 v = g \alpha_2 \chi = \beta_2 \left( \id_{\Omega^a} \times g \right) \chi
+\end{align*}
+that is \(u = \left( \id_{\Omega^a} \times g \right) \chi\). Finally, we can conclude now that \(\Omega^{gf} = \Omega^g \Omega^f\).
+
+It only remains to prove \(\Omega^{\id_a} \id_{\Omega^a}\) for \(a \in \abs{\cat E}\). By definition, \(\Omega^{\id_a}\) is the morphism for which there is a pullback square
+\[\begin{tikzcd}
+\in_a \ar[d] \ar["{\epsilon_a}", r] & \Omega^a \times a \ar["{\Omega^{\id_a} \times \id_a}", d] \\
+\in_a \ar["{\epsilon_a}", r, swap] & \Omega^a \times a
+\end{tikzcd} .\]
+Consequently, if we show there is a pullback square
+\[\begin{tikzcd}
+\in_a \ar[d] \ar["{\epsilon_a}", r] & \Omega^a \times a \ar["{\id_{\Omega^a} \times \id_a}", d] \\
+\in_a \ar["{\epsilon_a}", r, swap] & \Omega^a \times a
+\end{tikzcd}\]
+then we have concluded the verification of the functoriality. For that scope, consider the commutative square
+\[\begin{tikzcd}
+\in_a \ar["{\id_{\in_a}}", d, swap] \ar["{\epsilon_a}", r] & \Omega^a \times a \ar["{\id_{\Omega^a} \times \id_a}", d] \\
+\in_a \ar["{\epsilon_a}", r, swap] & \Omega^a \times a
+\end{tikzcd}\]
+Consider
+\[\begin{tikzcd}
+\bullet \ar["u", drr, bend left] \ar["v", ddr, swap, bend right] \\
+& \in_a \ar["{\id_{\in_a}}", d] \ar["{\epsilon_a}", r, swap] & \Omega^a \times a \ar["{\id_{\Omega^a} \times \id_a}", d] \\
+& \in_a \ar["{\epsilon_a}", r, swap] & \Omega^a \times a
+\end{tikzcd}\]
+with the outer square being commutative, that is \(u = \epsilon_a v\). Hence, the morphism \(v : \bullet \to \in_a\) works.

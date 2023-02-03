@@ -1,0 +1,41 @@
+% !TEX program = lualatex
+% !TEX root = ../../extenseurs.tex
+% !TEX spellcheck = en_GB
+
+\subsection{One monadic structure}
+
+Let us employ the definition of power object again: for \(a \in \abs{\cat E}\), the monomorphism
+\[\id_a \times \id_a : a \times a \to a \times a\]
+has the morphism \(\eta_a : a \to \Omega^a\) for which there is a unique pullback square
+\[\begin{tikzcd}
+a \ar[d] \times a \ar["{\id_a \times \id_a}", r] & a \times a \ar["{\eta_a \times \id_a}", d] \\
+\in_a \ar["{\epsilon_a}", r, swap] & \Omega^a \times a
+\end{tikzcd}\]
+We have to verify the morphisms \(\eta_a\) for \(a \in \abs{\cat E}\) form a natural transformation \(\id_{\cat E} \to \Omega^\bullet\), we shall write \(\eta\). We demonstrate 
+\[\begin{tikzcd}
+a \ar["{\eta_a}", r] \ar["f", d, swap] & \Omega^a \ar["{\Omega^f}", d] \\
+b \ar["{\eta_b}", r, swap] & \Omega^b
+\end{tikzcd}\]
+commutes for every \(f : a \to b\) in \(\cat E\). \nota{Definitive strategy yet to be found.}
+
+If we prove there exist two pullback squares
+\[\begin{tikzcd}
+a \times a \ar[d] \ar["{\id_a \times f}", r] & a \times b \ar["{(\eta_b f) \times \id_b}", d] \\
+\in_b \ar["{\epsilon_b}", r, swap] & \Omega^b \times b
+\end{tikzcd} \quad \begin{tikzcd}
+a \times a \ar[d] \ar["{\id_a \times f}", r] & a \times b \ar["{\left(\Omega^f \eta_a \right) \times \id_b}", d] \\
+\in_b \ar["{\epsilon_b}", r, swap] & \Omega^b \times b
+\end{tikzcd}\]
+then we have to conclude the naturality. The proof the first square is a pullback one is relatively simple. Consider
+\[\begin{tikzcd}
+a \times a \ar["{f \times f}", d, swap] \ar["{\id_a \times f}", r] & a \times b \ar["{f \times \id_b}", d] \\
+b \times b \ar[d] \ar["{\id_b \times \id_b}", r] & b \times b \ar["{\eta_b \times \id_b}", d] \\
+\in_b \ar["{\epsilon_b}", r, swap] & \Omega^b \times b
+\end{tikzcd}\]
+Here, the lower square is of pullback by how \(\eta_b\) is defined. The upper one is a pullback square too. \nota{Proof here!} Thus so is the perimetric rectangle because of the pullback lemma. For the second square consider
+\[\begin{tikzcd}[column sep=large]
+a \times a \ar[d] \ar["{\id_a \times \id_a}", r] \ar["{Q_1}", dr, phantom] & a \times a \ar["{\eta_a \times \id_a}", d] \ar["{\id_a \times f}", r] \ar["{Q_2}", dr, phantom] & a \times b \ar["{\eta_a \times \id_b}", d] \\
+\in_a \ar[d] \ar["{\epsilon_a}", r, swap] \ar["{Q_3}", drr, phantom] & \Omega^a \times a \ar["\id_{\Omega^a} \times f", r, swap] & \Omega^a \times b \ar["{\Omega^f \times \id_b}", d] \\
+\in_b \ar[rr] & & \Omega^b \times b
+\end{tikzcd}\]
+Again, using twice of the pullback lemma yields the perimetric rectangle is a pullback square: in fact, \(Q_1\) and \(Q_3\) are pullback squares by definition of \(\eta_a\) and \(\Omega^f\), whereas one can prove \(Q_2\) is a pullback square too. \nota{Proof here!}

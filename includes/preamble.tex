@@ -1,0 +1,58 @@
+% !TEX program = lualatex
+% !TEX root = ../extenseurs.tex
+% !TEX spellcheck = en_GB
+
+\section{Preamble}
+
+\nota{This section is important for me. It may be deleted in the final version. Let me recall some words here, and then (try to) set a strategy to attack the paper.}
+
+\begin{definition}
+A {\em monad} for a category \(\cat C\) consists of:
+\begin{itemize}
+\item one functor \(T :  \cat C \to \cat C\)
+\item one natural transformation \(\eta : \id_{\cat C} \to T\)
+\item one natural transformation \(\mu : T^2 \to T\), where \(T^2 := T \circ T\)
+\end{itemize}
+such that the diagrams
+\[\begin{tikzcd}
+T^3 x \ar["{T\mu_x}", r] \ar["{\mu_{T x}}", d, swap] & T^2 x \ar["{\mu_x}", d] \\
+T^2 x \ar["{\mu_x}", r, swap] & T x
+\end{tikzcd} \quad\text{and}\quad \begin{tikzcd}
+T x \ar["{\eta_{T x}}", r] \ar["{\id_{T x}}", dr] \ar["{T\mu_x}", d, swap] & T^2 x \ar["{\mu_x}", d] \\
+T^2 x \ar["{\mu_x}", r, swap] & T x
+\end{tikzcd}\]
+commute for every object \(x\) of \(\cat C\); let us write such monad as the triple \((T, \eta, \mu)\).
+\end{definition}
+
+In the sketched proof, the author talks about some \q{\textfrench{monade des parties du topos}}. \(\Set\) is a topos and
+
+\begin{sandbox}[The \q{power set} monad]
+Consider the functor \(2^\bullet : \Set \to \Set\) where, for \(X\) a set, \(2^\bullet(X) := 2^X\) and, for \(f : X \to Y\), define \(2^f := 2^\bullet(f)\)  to be the function \(2^A \to 2^B\) that takes subsets \(E\) of \(A\) to \(fE\).\newline
+Now, we need functions \(\xi_X : X \to 2^X\), one for each set \(X\), forming a natural transformation \(\xi : \id_\Set \to 2^\bullet\); we consider that one introduced as \(\xi_X (x) := \set{x}\).\newline
+To conclude the structure of monad, consider for \(X\) set, the function
+\[\delta_X : 2^{2^X} \to 2^X\,, \ \delta_X (F) := \bigcup_{E \in F} E .\]
+The family of such functions determine a natural transformation \(\delta : 2^\bullet \circ 2^\bullet \to 2^\bullet\).
+\end{sandbox}
+
+\begin{definition}
+If you are given a monad \((T, \eta, \mu)\) for a category \(\cat C\), you can introduce an {\em algebra} for this monad, consisting of:
+\begin{itemize}
+\item one object \(x\) in \(\cat C\)
+\item one morphism \(f : T x \to x\)
+\end{itemize}
+all this making commute the following diagrams
+\[\begin{tikzcd}
+T^2 x \ar["Tf", r] \ar["{\mu_x}", d, swap] & Tx \ar["f", d] \\
+T x \ar["f", r, swap] & x
+\end{tikzcd} \quad\text{and}\quad \begin{tikzcd}[row sep=small]
+x \ar["{\id_x}", dd, swap] \ar["{\eta_x}", dr] \\
+& Tx \ar["f", dl] \\
+x %\ar["f", ur, swap]
+\end{tikzcd}\]
+\end{definition}
+
+\nota{I've just written a couple of definitions, but for the next days here is what to do for me: find more examples motivating monads and algebras for monads; you must learn something about {\em Kleisli} and {\em Eilenberg-Moore categories}\dots{} Not only for the sake of these pages.}
+
+\nota{Now understand this: \q{\textfrench{un treillis complet est une \(2^\bullet\)-algèbre}}.}
+
+Let us try now to bring this to any topoi, if possible.

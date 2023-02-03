@@ -1,0 +1,83 @@
+% !TEX program = lualatex
+% !TEX root = ./extenseurs.tex
+
+\documentclass[ structure      = article
+              , maketitlestyle = standard
+              , secstyle       = center
+              , secfont        = roman
+              %, subsecstyle    = center
+              %, subsecfont     = roman
+              %, headerstyle    = center
+              , liststyle      = aligned
+              , quotesize      = normalsize
+              %, twocolcontents = toc
+              ]{suftesi}
+
+\usepackage[no-math]{fontspec}
+\usepackage[rm,mono=false]{libertine}
+\usepackage[scale=.85]{sourcecodepro}
+
+\usepackage{polyglossia}
+\setmainlanguage[variant=uk]{english}
+\setotherlanguage{french}
+
+\usepackage[english=british]{csquotes}
+\newcommand\q\enquote
+
+\usepackage{hyperref}
+\hypersetup{breaklinks,hidelinks}
+
+\usepackage{anyfontsize}
+
+\usepackage{indentfirst}
+
+\usepackage[
+           %  bibstyle=authoryear
+           %, citestyle=authortitle-icomp
+             bibstyle = alphabetic
+           , citestyle = alphabetic
+           , pluralothers=true
+           , autolang=langname
+           ]{biblatex}
+\addbibresource{biblio.bib}
+\nocite{*} % temporary
+
+\usepackage{geometry}
+
+\usepackage{libertinust1math}
+\usepackage{MnSymbol,mathtools}
+\usepackage[bb=ams]{mathalfa}
+
+\usepackage{amsthm}
+\newcounter{coun} % Find a nicer name for the counter...
+\counterwithin{coun}{section}
+\theoremstyle{definition}
+\newtheorem{definition}  [coun]{Definition}
+\newtheorem{construction}[coun]{Construction}
+\newtheorem{lemma}       [coun]{Lemma}
+\newtheorem{proposition} [coun]{Proposition}
+\newtheorem{corollary}   [coun]{Corollary}
+\newtheorem{remark}      [coun]{Remark}
+\newtheorem{sandbox}     [coun]{Sandbox}
+\newtheorem{example}     [coun]{Example}
+\newtheorem{exercise}    [coun]{Exercise}
+
+\renewcommand\theequation{\thesection.\arabic{equation}}
+
+%\newcommand\inlinethm[1]{\stepcounter{coun}{\bf #1~\thecoun}}
+
+%\usepackage{adjustbox}
+\usepackage{tikz}
+\usetikzlibrary{calc,babel}
+\usepackage{tikz-cd}
+\tikzcdset{ row sep/normal=.7cm
+          , column sep/normal=.7cm
+          , arrow style=tikz
+          , diagrams={>={To[length=3.5pt,width=3.5pt]}}
+          , shorten=-2pt
+          , natural/.style={shorten=2pt, Rightarrow}
+          , cramped
+          }
+
+% The first chapter is the zeroth chapter.
+%\setcounter{section}{-1}

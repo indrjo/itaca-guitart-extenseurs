@@ -1,0 +1,51 @@
+% !TEX program = lualatex
+% !TEX root = ../extenseurs.tex
+% !TEX spellcheck = en_GB
+
+\section{The actual article and a proof}
+
+\nota{The symbolism here is weird\dots{}}
+
+An {\em extensor} \nota{in french, it is \q{\textfrench{extenseur}}} for a category \(\cat C\) amounts at having one object \(a\) of \(\cat C\) and for every {\em span}
+\[\begin{tikzcd}[row sep=tiny]
+& x \ar["f", dl, swap] \ar["g", dr] & \\
+a & & y
+\end{tikzcd}\]
+of \(\cat C\) one morphism \(y \to a\) of \(\cat C\) we denote \(\angled{f, g}\); all this complying with the following rules:
+\begin{enumerate}
+\item For any consecutive morphisms \begin{tikzcd}[column sep=tiny] x \ar["g", r] & y \ar["h", r] & z \end{tikzcd} we have
+\[\angled{\angled{f, g}, h} = \angled{f, hg}.\]
+\nota{Here is a drawing of all this:
+\[\begin{tikzcd}[column sep=small, ampersand replacement=\&]
+  \& x \ar["f", dl, swap] \ar["g", dr] \& \\
+a \&                                   \& y \ar["h", d] \ar["{\angled{f, g}}", ll, dashed] \\
+  \&                                   \& z \ar["{\angled{\angled{f, g}, h} = \angled{f, hg}}", ull, dotted]
+\end{tikzcd}\]}
+\item If
+\[\begin{tikzcd}
+\phantom\bullet \ar["{p'}", r] \ar["{h'}", d, swap] & \phantom\bullet \ar["h", d] \\
+\phantom\bullet \ar["p", r, swap] & \phantom\bullet
+\end{tikzcd}\]
+is a pullback square \nota{in french, it is \q{\textfrench{produit fibré}}, that is fibred product}, then for every \(f\) as in
+\[\begin{tikzcd}
+& \phantom\bullet \ar["{p'}", r] \ar["{h'}", d] & \phantom\bullet \ar["h", d] \\
+& \phantom\bullet \ar["p", r, swap] \ar["f" description, dl] & \phantom\bullet \\
+\phantom\bullet
+\end{tikzcd}\]
+we have
+\[\angled{f, p} h = \angled{fh', p'} .\]
+\item If in
+\[\begin{tikzcd}
+\phantom\bullet & \phantom\bullet \ar["p", l] \ar["h", r, bend left] & \phantom\bullet \ar["{h'}", l, bend left] \ar["q", r] & \phantom\bullet 
+\end{tikzcd}\]
+we have \(ph'h = p\) and \(qhh' = q\), then for if \(f\) is as in
+\[\begin{tikzcd}
+\phantom\bullet & \phantom\bullet \ar["f", l] & \phantom\bullet \ar["p", l] \ar["h", r, bend left] & \phantom\bullet \ar["{h'}", l, bend left] \ar["q", r] & \phantom\bullet 
+\end{tikzcd}\]
+then
+\[\angled{aph', q} = \angled{ap, qh} .\]
+\end{enumerate}
+
+\nota{This definition is a mess.} \nota{Rewrite?}
+
+\nota{\TeX{} the unique result of the paper. What is a \q{\textfrench{sup-treillis}}? A \q{\textfrench{treillis}} is a lattice. Maybe a lattice with products?}
